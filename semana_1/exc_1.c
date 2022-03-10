@@ -13,10 +13,9 @@ char* remnome(char* str);
 int main(){
 SetConsoleOutputCP(65001);
 
-int exit = 1, controle, case_1 = 1;
+int exit = 1, controle, case_loop = 1;
 char buffer[50];
-char *string = malloc(sizeof(char));
-memset(string, 0, 1); //limpar lixo
+char *string = calloc(1 ,sizeof(char));
 
 while(exit){
     printf("\n1) Adicionar nomes \n");
@@ -30,17 +29,25 @@ while(exit){
 
     switch (controle){
         case 1:
-            case_1 = 1;
-            while (case_1)
+            case_loop = 1;
+            while (case_loop)
             {
             addnome(string);
             printf("\nDigite 1 pra adicionar outro nome, e 0 para voltar ao MENU: ");
-            scanf("%d", &case_1);
+            scanf("%d", &case_loop);
             getchar();
             }
         break;
 
         case 2:
+            case_loop = 1;
+            while (case_loop)
+            {
+            remnome(string);
+            printf("\nDigite 1 pra remover outro nome, e 0 para voltar ao MENU: ");
+            scanf("%d", &case_loop);
+            getchar();
+            }
         break;
 
         case 3:
@@ -66,27 +73,29 @@ char* addnome(char* str){
     printf("\nInsira o nome: ");
     scanf("%s", &buffer);
     getc(stdin);
+    strcat(buffer, div); //adiciona o marcador
     tamanho = strlen(buffer);
-    realloc(str, (sizeof(str)+sizeof(div))+(tamanho*sizeof(char))); //soma a memória já alocada com o tamanho do nome +1 da divisão
-    
+    realloc(str, sizeof(str)+(tamanho*sizeof(char))); //soma a memória já alocada com o tamanho do nome +1 da divisão
     strcat(str, buffer); //adiciona o nome
-    strcat(str, div); //adiciona o marcador
-    return *str;
+    return str;
 }
 
 char* remnome(char* str){
-    int tamanho, i;
+    int tamanho, tamanho_2, i;
     char buffer[50];
-    char* ptr, ptr_1; 
+    char div[] = "|";
+    char *start, *end; 
     printf("\nInsira o nome a ser removido da lista: ");
     scanf("%s", buffer);
+    getc(stdin);
+    strcat(buffer, div);
     tamanho = strlen(buffer);
-    ptr = strstr(str, buffer); //achado o ponteiro pro começo da palavra a ser retirada, ou Null caso ela n exista
-    //memset(ptr, 0, tamanho+1); //substitui o nome e o seguinte caractere de divisão por 0
-
-    for(i=0; i<=tamanho; i++){ //pula a palavra a ser tirada + o caractere divisor
-    ptr++; 
-    } 
-
-
+    start = strstr(str, buffer); //achado o ponteiro pro começo da palavra a ser retirada, ou Null caso ela n exista
+    end = start;  //guarda o local do começo da palavra a ser retirada
+    for(i=0; i<tamanho; i++){
+        end++; //end agora aponta pra primeira letra da proxima palavra 
+        } 
+    
+    memmove(start, end, strlen(end)+1); //sobrescreve a palavra com o restante da string. o +1 é importantissimo no memmove, para trazer o caractere nulo também. 
+    return str; 
 }
