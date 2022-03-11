@@ -14,8 +14,7 @@ int main(){
 SetConsoleOutputCP(65001);
 
 int exit = 1, controle, case_loop = 1;
-char buffer[50];
-char *string = calloc(1 ,sizeof(char));
+char *string = (char*)calloc(1 ,sizeof(char));
 
 while(exit){
     printf("\n1) Adicionar nomes \n");
@@ -71,7 +70,7 @@ char* addnome(char* str){
     char div[] = "|";
     char buffer[50];
     printf("\nInsira o nome: ");
-    scanf("%s", &buffer);
+    scanf("%s", buffer);
     getc(stdin);
     strcat(buffer, div); //adiciona o marcador
     tamanho = strlen(buffer);
@@ -81,7 +80,7 @@ char* addnome(char* str){
 }
 
 char* remnome(char* str){
-    int tamanho, tamanho_2, i;
+    int tamanho, i;
     char buffer[50];
     char div[] = "|";
     char *start, *end; 
@@ -92,10 +91,8 @@ char* remnome(char* str){
     tamanho = strlen(buffer);
     start = strstr(str, buffer); //achado o ponteiro pro começo da palavra a ser retirada, ou Null caso ela n exista
     end = start;  //guarda o local do começo da palavra a ser retirada
-    for(i=0; i<tamanho; i++){
+        for(i=0; i<tamanho; i++)
         end++; //end agora aponta pra primeira letra da proxima palavra 
-        } 
-    
     memmove(start, end, strlen(end)+1); //sobrescreve a palavra com o restante da string. o +1 é importantissimo no memmove, para trazer o caractere nulo também. 
     return str; 
 }
