@@ -14,7 +14,8 @@ int main(){
 SetConsoleOutputCP(65001);
 
 int exit = 1, controle, case_loop = 1;
-char *string = (char*)calloc(1 ,sizeof(char));
+char *string = calloc(2 ,sizeof(char));
+strcat(string, "|\0");
 
 while(exit){
     printf("\n1) Adicionar nomes \n");
@@ -31,7 +32,7 @@ while(exit){
             case_loop = 1;
             while (case_loop)
             {
-            addnome(string);
+            string = addnome(string);
             printf("\nDigite 1 pra adicionar outro nome, e 0 para voltar ao MENU: ");
             scanf("%d", &case_loop);
             getchar();
@@ -62,20 +63,22 @@ while(exit){
     }
 }
 
+free(string);
 return 0;
 }
 
 char* addnome(char* str){
-    int tamanho;
+    int str_length, buffer_length;
     char div[] = "|";
-    char buffer[50];
+    char temp_str[25];
     printf("\nInsira o nome: ");
-    scanf("%s", buffer);
+    scanf("%s", temp_str);
     getc(stdin);
-    strcat(buffer, div); //adiciona o marcador
-    tamanho = strlen(buffer);
-    realloc(str, sizeof(str)+(tamanho*sizeof(char))); //soma a memória já alocada com o tamanho do nome +1 da divisão
-    strcat(str, buffer); //adiciona o nome
+    strcat(temp_str, div); //adiciona o marcador
+    buffer_length = strlen(temp_str);
+    str_length = strlen(str);
+    realloc(str, sizeof(str)+sizeof(char)*buffer_length); //soma a memória já alocada com o tamanho do nome
+    strcat(str, temp_str); //adiciona o nome
     return str;
 }
 
@@ -87,6 +90,9 @@ char* remnome(char* str){
     printf("\nInsira o nome a ser removido da lista: ");
     scanf("%s", buffer);
     getc(stdin);
+
+
+
     strcat(buffer, div);
     tamanho = strlen(buffer);
     start = strstr(str, buffer); //achado o ponteiro pro começo da palavra a ser retirada, ou Null caso ela n exista
