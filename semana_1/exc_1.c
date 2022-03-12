@@ -9,7 +9,6 @@
 
 char* addnome(char* str);
 char* remnome(char* str);
-//char* findword(char* str);
 
 int main(){
 SetConsoleOutputCP(65001);
@@ -52,7 +51,7 @@ while(exit){
         break;
 
         case 3:
-        printf("\n   %s\n\n", string);
+        printf("\n %s\n", string);
         break;
 
         case 4:
@@ -70,7 +69,7 @@ return 0;
 char* addnome(char* str){
     int buffer_length;
     char div[] = "|", temp_str[25];
-    printf("\nInsira o nome: ");
+    printf("Insira o nome: ");
     scanf("%s", temp_str);
     getc(stdin);
     strcat(temp_str, div); //adiciona o marcador
@@ -86,7 +85,7 @@ char* remnome(char* str){
     char *start, *end, *test; 
 
     inicio: 
-    printf("\nInsira o nome a ser removido da lista: ");
+    printf("Insira o nome a ser removido da lista: ");
     scanf("%s", buffer);
     getc(stdin);
     strcat(buffer, div);
