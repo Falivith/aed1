@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define LIM_CHAR 25
+
 #include <windows.h> //apenas acentuação, pode ser retirado em conjunto com a primeira linha do main
 
 char* addnome(char* str);
@@ -60,26 +62,27 @@ while(exit){
     }
 }
 
+free(string);
 return 0;
 }
 
 char* addnome(char* str){
     int buffer_size, str_size;
-    char div[] = "|", temp_str[25];
+    char div[] = "|", temp_str[LIM_CHAR];
     printf("Insira o nome: ");
     scanf("%s", temp_str);
     getc(stdin);
-    strcat(temp_str, div); //adiciona o marcador
+    strcat(temp_str, div);                                            //adiciona o marcador
     buffer_size = strlen(temp_str);
     str_size = strlen(str);
-    str = (char*)realloc(str, (buffer_size+str_size)*sizeof(char)+1); //soma a memória já alocada com o tamanho do nome
-    strcat(str, temp_str); //adiciona o nome
+    str = (char*)realloc(str, (buffer_size+str_size)*sizeof(char)+1); //soma o tamanho já alocado com o novo nome +1 do \0 
+    strcat(str, temp_str);
     return str;
 }
 
 char* remnome(char* str){
     int tamanho, i;
-    char buffer[50], div[] = "|";
+    char buffer[LIM_CHAR], div[] = "|";
     char *start, *end, *test; 
 
     inicio: 
@@ -91,12 +94,16 @@ char* remnome(char* str){
 
     if(test !=  NULL){ 
         tamanho = strlen(buffer);
-        start = strstr(str, buffer); //achado o ponteiro pro começo da palavra a ser retirada, ou Null caso ela n exista
-        end = start;  //guarda o local do começo da palavra a ser retirada
-        for(i=0; i<tamanho; i++)
-            end++; //end agora aponta pra primeira letra da proxima palavra 
-        memmove(start, end, strlen(end)+1); //sobrescreve a palavra com o restante da string. o +1 é para trazer o caractere nulo também. 
+        start = strstr(str, buffer);            //achado o ponteiro pro começo da palavra a ser retirada, ou Null caso ela n exista
+        end = start;                            //guarda o local do começo da palavra a ser retirada
+            for(i=0; i<tamanho; i++)            //end agora aponta pra primeira letra da proxima palavra
+            end++;  
+        memmove(start, end, strlen(end)+1);     //sobrescreve a palavra com o restante da string. o +1 é para trazer o caractere nulo também. 
+        tamanho = strlen(str);
+        str = (char*)realloc(str, tamanho*sizeof(char)+1); //diminue a quantidade de memória alocada, o +1 é para contar o caractere nulo.
             return str; 
         }
-        else{goto inicio;}
+        else{
+            goto inicio;
+            }
 }
