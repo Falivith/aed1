@@ -14,7 +14,6 @@ int main(){
     SetConsoleOutputCP(65001);
     int exit = 1, controle, case_loop = 1;
     char *string = calloc(2 ,sizeof(char));
-    //strcat(string, "|\0"); //inicializa a string com 1 separador e um caractere nulo
     string[0] = '|';
 
 while(exit){
@@ -30,32 +29,30 @@ while(exit){
     switch (controle){
         case 1:
             case_loop = 1;
-            while (case_loop)
-            {
-            string = addnome(string);
-            printf("\nDigite 1 pra adicionar outro nome, e 0 para voltar ao MENU: ");
-            scanf("%d", &case_loop);
-            getchar();
-            }
+            while (case_loop){
+                string = addnome(string);
+                printf("\nDigite 1 pra adicionar outro nome, e 0 para voltar ao MENU: ");
+                scanf("%d", &case_loop);
+                getchar();
+                }
         break;
 
         case 2:
             case_loop = 1;
-            while (case_loop)
-            {
-            remnome(string);
-            printf("\nDigite 1 pra remover outro nome, e 0 para voltar ao MENU: ");
-            scanf("%d", &case_loop);
-            getchar();
-            }
+            while (case_loop){
+                remnome(string);
+                printf("\nDigite 1 pra remover outro nome, e 0 para voltar ao MENU: ");
+                scanf("%d", &case_loop);
+                getchar();
+                }
         break;
 
         case 3:
-        printf("\n %s\n", string);
+            printf("\n%s\n", string);
         break;
 
         case 4:
-        exit = 0; 
+            exit = 0; 
         break; 
 
         default: 
@@ -67,14 +64,15 @@ return 0;
 }
 
 char* addnome(char* str){
-    int buffer_length;
+    int buffer_size, str_size;
     char div[] = "|", temp_str[25];
     printf("Insira o nome: ");
     scanf("%s", temp_str);
     getc(stdin);
     strcat(temp_str, div); //adiciona o marcador
-    buffer_length = strlen(temp_str);
-    realloc(str, sizeof(str)+sizeof(char)*buffer_length); //soma a memória já alocada com o tamanho do nome
+    buffer_size = strlen(temp_str);
+    str_size = strlen(str);
+    str = (char*)realloc(str, (buffer_size+str_size)*sizeof(char)+1); //soma a memória já alocada com o tamanho do nome
     strcat(str, temp_str); //adiciona o nome
     return str;
 }
