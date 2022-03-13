@@ -75,7 +75,7 @@ char* addnome(char* str){
     strcat(temp_str, div);                                            //adiciona o marcador
     buffer_size = strlen(temp_str);
     str_size = strlen(str);
-    str = (char*)realloc(str, (buffer_size+str_size)*sizeof(char)+1); //soma o tamanho já alocado com o novo nome +1 do \0 
+    str = (char*)realloc(str, (buffer_size+str_size)*sizeof(char)+(char)1); //soma o tamanho já alocado com o novo nome +1 do \0 
     strcat(str, temp_str);
     return str;
 }
@@ -100,7 +100,7 @@ char* remnome(char* str){
             end++;  
         memmove(start, end, strlen(end)+1);     //sobrescreve a palavra com o restante da string. o +1 é para trazer o caractere nulo também. 
         tamanho = strlen(str);
-        str = (char*)realloc(str, tamanho*sizeof(char)+1); //diminue a quantidade de memória alocada, o +1 é para contar o caractere nulo.
+        str = (char*)realloc(str, tamanho*sizeof(char)+(char)1); //diminue a quantidade de memória alocada, o +1 é para contar o caractere nulo.
             return str; 
         }
         else{
