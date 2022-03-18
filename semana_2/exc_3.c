@@ -8,26 +8,49 @@ struct dados{
     char nome[10];
 };
 
-add_cadastro(void *pBuffer);
-//rem_cadastro(void *pBuffer);
-//list_dados(void *pBuffer);
+void add_cadastro(void *pBuffer){
+    char temp[50];
+    printf("\nDigite o nome do cliente.");
+    scanf("%s", temp);
+    }
 
 int main(){
-    unsigned int controle = 1, clientes = 0; 
-    void *pBuffer = malloc(1);
+    int sair = 1; 
+    int option = 1;
+    //int clientes = 0;
+    void *pBuffer = calloc(1,1);
 
 
-    while(exit)
-        switch(controle)
-        {
-        case 1: 
-        add_cadastro(pBuffer);
-        break;
+    while(sair){
 
-        default:
-        break;
+        printf("\n1) Incluir novo cadastro");
+        printf("\n2) Excluir cadastro");
+        printf("\n3) Buscar cliente");
+        printf("\n4) Listar clientes");
+        printf("\n5) Sair"); 
+        scanf("%d", &option);
+
+            switch(option)
+            {
+            case 1: 
+                printf("\n");
+                add_cadastro(pBuffer);
+            break;
+
+            case 2:
+            break;
+
+            case 3: 
+            break;
+
+            case 4:
+                sair = 0; 
+            break; 
+
+            default:
+            break;
         }
-    
+    }
 
     return 0;
 }
