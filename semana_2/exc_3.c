@@ -21,7 +21,7 @@ int main(){
     int sair = 1; 
     int option = 1;
     void *pBuffer = calloc(1,sizeof(int)); //é reservado um int pra guardar o Npessoas
-    pBuffer = 0;
+    *(int*)pBuffer = 0;
 
     while(sair){
 
@@ -62,36 +62,35 @@ int main(){
 }
 
 void* add_cadastro(void *pBuffer){
-
+    *(int*)pBuffer = *(int*)pBuffer + 1; //o conteudo do endereço 0 é um int, logo, incrementar pBuffer aumenta o n de clientes
     void *p = pBuffer;
     int temp_idade, tel_size = 0, n_cliente, size_dados;
     char temp_nome[11], telefone[9];
 
-    printf("\n\nDigite o nome do cliente: ");
+    printf("\nDigite o nome do cliente: ");
     fgets(temp_nome, sizeof(temp_nome), stdin);
-    printf("\nDigite a idade do cliente: ");
+    printf("Digite a idade do cliente: ");
     scanf("%d", &temp_idade);   getc(stdin);
 
         while(tel_size != 8){
-        printf("\n(8 caracteres) Digite o telefone do cliente: ");
+        printf("(8 caracteres) Digite o telefone do cliente: ");
         fgets(telefone, sizeof(telefone), stdin);
         tel_size = strlen(telefone);
         }
 
-    n_cliente = (int) pBuffer;
+    n_cliente = *(int*)pBuffer;
     size_dados = sizeof(int) + n_cliente * (sizeof(temp_nome) + sizeof(telefone) + sizeof(temp_idade) );
 
-    pBuffer = realloc(pBuffer, sizeof(int)+size_dados); 
+    pBuffer = realloc(pBuffer, size_dados); 
 
-        p = p + size_dados;               //pula o numero de clientes e vai para o campo nome
-            memset(p, '\0', sizeof(temp_nome));  //erro
-            strcat(p, temp_nome);               //preenche o campo nome
-        p = p + sizeof(temp_nome);      //pula o tamanho do nome e vai para o campo idade
-            p = (int*)temp_idade;                     //preenche a idade
-        p = p + sizeof(int);            //pula o tamanho da idade e vai para o campo telefone
-            memset(p, '\0', sizeof(telefone)); 
-            strcat(p, telefone);                //preenche o telefone
+        pBuffer = pBuffer + sizeof(int);               //pula o numero de clientes e vai para o campo nome
+            memmove(pBuffer, temp_nome, strlen(temp_nome)+1);
+        pBuffer = pBuffer + sizeof(temp_nome);      //pula o tamanho do nome e vai para o campo idade
+            pBuffer = (int*)temp_idade;                     //preenche a idade
+        pBuffer = pBuffer + sizeof(int);            //pula o tamanho da idade e vai para o campo telefone
+            memset(pBuffer, '\0', sizeof(telefone)); 
+            strcat(pBuffer, telefone);                //preenche o telefone
 
-    pBuffer++; //o conteudo do endereço 0 é um int, logo, incrementar pBuffer aumenta o n de clientes
-    return pBuffer;
+    
+    return p;
     }
