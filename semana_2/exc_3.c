@@ -13,6 +13,7 @@
 void* add_cadastro(void *pBuffer);
 void* listar_cadastro(void *pBuffer);
 void* buscar_cadastro(void *pBuffer);
+void* rem_cadastro(void *pBuffer);
 
 
 int main(){
@@ -40,6 +41,7 @@ int main(){
         break;
 
         case 2:
+            pBuffer = rem_cadastro(pBuffer);
         break;
 
         case 3:
@@ -48,7 +50,6 @@ int main(){
 
         case 4:
             pBuffer = listar_cadastro(pBuffer);
-            printf("\n");
         break;
 
         case 5:
@@ -109,16 +110,16 @@ void* listar_cadastro(void *pBuffer){
     n_clientes = *(int*)pBuffer; 
     pBuffer = pBuffer + sizeof(int); //pula o numero de clientes
 
-    for(i=0; i<n_clientes; i++){
-        printf("\nCliente Nº %d:", i+1);
-        printf("\nNome: %s", (char*)pBuffer);
-        pBuffer = pBuffer + TAM_NOME; 
-        printf("\nIdade: %d", *(int*)pBuffer); 
-        pBuffer = pBuffer + sizeof(int);
-        printf("\nTelefone: %s", (char*)pBuffer);
-        pBuffer = pBuffer + TAM_TELEFONE;
-        printf("\n");
-    }
+        for(i=0; i<n_clientes; i++){
+            printf("\nCliente Nº %d:", i+1);
+            printf("\nNome: %s", (char*)pBuffer);
+            pBuffer = pBuffer + TAM_NOME; 
+            printf("\nIdade: %d", *(int*)pBuffer); 
+            pBuffer = pBuffer + sizeof(int);
+            printf("\nTelefone: %s", (char*)pBuffer);
+            pBuffer = pBuffer + TAM_TELEFONE;
+            printf("\n\n");
+        }
 
     return p;
 }
@@ -183,26 +184,48 @@ void* buscar_cadastro(void *pBuffer){
             break;
 
             case 4:
-            printf("\nDigite o Nº de telefone a ser procurado na base de dados");
-                fgets(temp_telefone, TAM_TELEFONE, stdin);
-                temp_telefone[strcspn(temp_telefone, "\n")] = 0;
-                pBuffer = pBuffer + TAM_NOME + sizeof(int); //pula pro campo telefone
-                    for(i=0; i<n_clientes; i++){
-                        if(strcmp(temp_telefone, (char*)pBuffer) == 0){
-                            printf("\nCliente Nº%d\n", i+1);
-                            pBuffer = pBuffer - TAM_NOME - sizeof(int); //volta pro campo nome
-                            printf("\nNome: %s", (char*)pBuffer);
-                            pBuffer = pBuffer + TAM_NOME;
-                            printf("\nIdade: %d", *(int*)pBuffer);
-                            pBuffer = pBuffer + sizeof(int);
-                            printf("\nTelefone: %s\n", (char*)pBuffer);
-                            verificador++;
-                            break;
+                printf("\nDigite o Nº de telefone a ser procurado na base de dados");
+                    fgets(temp_telefone, TAM_TELEFONE, stdin);
+                    temp_telefone[strcspn(temp_telefone, "\n")] = 0;
+                    pBuffer = pBuffer + TAM_NOME + sizeof(int); //pula pro campo telefone
+                        for(i=0; i<n_clientes; i++){
+                            if(strcmp(temp_telefone, (char*)pBuffer) == 0){
+                                printf("\nCliente Nº%d\n", i+1);
+                                pBuffer = pBuffer - TAM_NOME - sizeof(int); //volta pro campo nome
+                                printf("\nNome: %s", (char*)pBuffer);
+                                pBuffer = pBuffer + TAM_NOME;
+                                printf("\nIdade: %d", *(int*)pBuffer);
+                                pBuffer = pBuffer + sizeof(int);
+                                printf("\nTelefone: %s\n", (char*)pBuffer);
+                                verificador++;
+                                break;
+                            }
+                            else{pBuffer = pBuffer + sizeof(int) + TAM_NOME + TAM_TELEFONE;} //avança até o próximo telefone
                         }
-                        else{pBuffer = pBuffer + sizeof(int) + TAM_NOME + TAM_TELEFONE;} //avança até o próximo telefone
-                    }
                     if(verificador == 0) printf("\n--| Erro: Não foram encontrados clientes com esse Nº de Telefone |--");
             break;
             }
     return p; 
+}
+
+void* rem_cadastro(void *pBuffer){
+    int x_cli, i, size_dados, n_clientes = *(int*)pBuffer;
+    void *start, *end; 
+    start = pBuffer;
+    if(n_clientes<1)return pBuffer;
+    size_dados = sizeof(int) + TAM_NOME + TAM_TELEFONE;
+
+        do{
+        printf("\nInsira o Nº do usuário a ser excluido: "); //laço pra evitar valores invalidos de cliente
+        scanf("%d", x_cli); getc(stdin);
+        }while(x_cli<1 && x_cli>n_clientes);
+
+    start = start + sizeof(int);
+    start = start + (x_cli-1)*size_dados;
+    end = start; 
+    end = end + size_dados;
+    memmove(start, end, (n_clientes*size_dados - x_cli*size_dados) ); //sobrescreve o conteudo.
+    pBuffer = realloc(pBuffer, sizeof(int) + (n_clientes-1)*size_dados); 
+    *(int*)pBuffer--; 
+    return pBuffer;
 }
