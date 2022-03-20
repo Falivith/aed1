@@ -209,7 +209,7 @@ void* buscar_cadastro(void *pBuffer){
 }
 
 void* rem_cadastro(void *pBuffer){
-    int x_cli, i, size_dados, n_clientes = *(int*)pBuffer;
+    int x_cli = 0, size_dados, n_clientes = *(int*)pBuffer;
     void *start, *end; 
     start = pBuffer;
     if(n_clientes<1)return pBuffer;
@@ -217,8 +217,8 @@ void* rem_cadastro(void *pBuffer){
 
         do{
         printf("\nInsira o Nº do usuário a ser excluido: "); //laço pra evitar valores invalidos de cliente
-        scanf("%d", x_cli); getc(stdin);
-        }while(x_cli<1 && x_cli>n_clientes);
+        scanf("%d", &x_cli); getc(stdin);
+        }while(x_cli<1 || x_cli>n_clientes);
 
     start = start + sizeof(int);
     start = start + (x_cli-1)*size_dados;
@@ -226,6 +226,6 @@ void* rem_cadastro(void *pBuffer){
     end = end + size_dados;
     memmove(start, end, (n_clientes*size_dados - x_cli*size_dados) ); //sobrescreve o conteudo.
     pBuffer = realloc(pBuffer, sizeof(int) + (n_clientes-1)*size_dados); 
-    *(int*)pBuffer--; 
+    *(int*)pBuffer = *(int*)pBuffer - 1;  
     return pBuffer;
 }
