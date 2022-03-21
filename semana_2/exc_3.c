@@ -30,7 +30,7 @@ int main(){
         printf("\n3) Buscar cliente");
         printf("\n4) Listar clientes");
         printf("\n5) Sair");
-        printf("\n\nOpção: ");
+        printf("\nOpção: ");
         scanf("%d", &option);
         getc(stdin);
 
@@ -132,7 +132,7 @@ void* buscar_cadastro(void *pBuffer){
     char temp_nome[TAM_NOME], temp_telefone[TAM_TELEFONE];
     pBuffer = pBuffer + sizeof(int); //pula o numero de clientes
 
-    printf("\n||||||||||||||||||\n1) Nome\n2) Telefone\n3) Idade\n4) Voltar ao Menu\n||||||||||||||||||\n\nVocê deseja procurar o cliente via:");
+    printf("\n||||||||||||||||||\n1) Nome\n2) Telefone\n3) Idade\n4) Voltar ao Menu\n||||||||||||||||||\n\nVocê deseja procurar o cliente via: ");
     scanf("%d", &option); getc(stdin);
 
         switch(option){
@@ -157,6 +157,25 @@ void* buscar_cadastro(void *pBuffer){
             break;
 
             case 2:
+                printf("\nDigite o Nº de telefone a ser procurado na base de dados: ");
+                fgets(temp_telefone, TAM_TELEFONE, stdin);
+                temp_telefone[strcspn(temp_telefone, "\n")] = 0;
+                pBuffer = pBuffer + TAM_NOME + sizeof(int); //pula pro campo telefone
+                    for(i=0; i<n_clientes; i++){
+                        if(strcmp(temp_telefone, (char*)pBuffer) == 0){
+                            printf("\nCliente Nº%d\n", i+1);
+                            pBuffer = pBuffer - TAM_NOME - sizeof(int); //volta pro campo nome
+                            printf("\nNome: %s", (char*)pBuffer);
+                            pBuffer = pBuffer + TAM_NOME;
+                            printf("\nIdade: %d", *(int*)pBuffer);
+                            pBuffer = pBuffer + sizeof(int);
+                            printf("\nTelefone: %s\n", (char*)pBuffer);
+                            verificador++;
+                            break;
+                        }
+                        else{pBuffer = pBuffer + sizeof(int) + TAM_NOME + TAM_TELEFONE;} //avança até o próximo telefone
+                    }
+                if(verificador == 0) printf("\n--| Erro: Não foram encontrados clientes com esse Nº de Telefone |--");
             break;
 
             case 3:
@@ -172,37 +191,20 @@ void* buscar_cadastro(void *pBuffer){
                             printf("\nIdade: %d", *(int*)pBuffer);
                             pBuffer = pBuffer + sizeof(int);
                             printf("\nTelefone: %s\n", (char*)pBuffer);
-                            pBuffer = pBuffer + TAM_NOME;
+                            pBuffer = pBuffer + TAM_TELEFONE + TAM_NOME;
                             verificador++;
-                            break;
                         }
                         else{
                             pBuffer = pBuffer + sizeof(int) + TAM_NOME + TAM_TELEFONE; //avança até a proxima idade
-                        }  
+                        }
                     }
                     if(verificador == 0)printf("\n--| Erro: Não foram encontrados cadastros com essa idade. |--");
             break;
 
             case 4:
-                printf("\nDigite o Nº de telefone a ser procurado na base de dados");
-                    fgets(temp_telefone, TAM_TELEFONE, stdin);
-                    temp_telefone[strcspn(temp_telefone, "\n")] = 0;
-                    pBuffer = pBuffer + TAM_NOME + sizeof(int); //pula pro campo telefone
-                        for(i=0; i<n_clientes; i++){
-                            if(strcmp(temp_telefone, (char*)pBuffer) == 0){
-                                printf("\nCliente Nº%d\n", i+1);
-                                pBuffer = pBuffer - TAM_NOME - sizeof(int); //volta pro campo nome
-                                printf("\nNome: %s", (char*)pBuffer);
-                                pBuffer = pBuffer + TAM_NOME;
-                                printf("\nIdade: %d", *(int*)pBuffer);
-                                pBuffer = pBuffer + sizeof(int);
-                                printf("\nTelefone: %s\n", (char*)pBuffer);
-                                verificador++;
-                                break;
-                            }
-                            else{pBuffer = pBuffer + sizeof(int) + TAM_NOME + TAM_TELEFONE;} //avança até o próximo telefone
-                        }
-                    if(verificador == 0) printf("\n--| Erro: Não foram encontrados clientes com esse Nº de Telefone |--");
+            break;
+
+            default: 
             break;
             }
     return p; 
