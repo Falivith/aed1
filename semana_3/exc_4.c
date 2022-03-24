@@ -79,22 +79,22 @@ return pBuffer;
 
 void* add_cadastro(void *pBuffer){
 
-    void *ptr = pBuffer;
-    ptr = ptr + 2*sizeof(int);                      //3º Campo de pBuffer = Contagem de Usuarios preenchidos  
-
-
+    void *ptr_1 = pBuffer, *ptr = pBuffer;
+    ptr = ptr + 2*sizeof(int);             //3º Campo de pBuffer = Contagem de Usuarios preenchidos  
+    ptr_1 = ptr_1 + 3*sizeof(int);         //4º Campo de pBuffer = Inteiro usado pra teste no preenchimento de telefone
+    *(int*)ptr_1 = 0; 
 
     printf("\nDigite o nome (10 Caracteres) do cliente: ");
-    fgets(pessoas->nome, sizeof(pessoas->nome), stdin);
-    pessoas->nome[strcspn(pessoas->nome, "\n")] = 0;
+    fgets(pessoas[*(int*)ptr].nome, sizeof(pessoas->nome), stdin);
+    pessoas[*(int*)ptr].nome[strcspn(pessoas[*(int*)ptr].nome, "\n")] = 0;
 
     printf("Digite a idade do cliente: ");
-    scanf("%d", pessoas->idade);   getc(stdin);
+    scanf("%d", pessoas[*(int*)ptr].idade);   getc(stdin);
 
-        while(tel_size != 8){
+        while(*(int*)ptr_1 != 8){
         printf("(8 caracteres, mais serão ignorados) Digite o telefone do cliente: ");
-        fgets(telefone, sizeof(telefone), stdin);
-        tel_size = strlen(telefone);
+        fgets(pessoas[*(int*)ptr].telefone, sizeof(pessoas->telefone), stdin);
+        *(int*)ptr_1 = strlen(pessoas[*(int*)ptr].telefone);
         }
 
     /*||||||||||||| passagem dos dados pro pBuffer |||||||||||||*/
@@ -112,6 +112,6 @@ void* add_cadastro(void *pBuffer){
         pBuffer = pBuffer + sizeof(int);                             //pula o tamanho da idade e vai para o campo telefone
             memmove((char*)pBuffer, telefone, sizeof(telefone));     //prenche o telefone
 
-
-    return p; //retorna o endereço de p, que é na verdade o endereço inicial de pBuffer que foi guardado antes dele começar a preencher os campos
+    *(int*)ptr++; 
+    return pBuffer;
     }
