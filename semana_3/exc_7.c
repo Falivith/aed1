@@ -160,13 +160,10 @@ void* rem_cadastro(void *pBuffer){
         scanf("%d", (int*)rem_user);     getc(stdin);
 
             if(*(int*)rem_user == 0){
-                printf("\nVoltando ao menu...");
-            return pBuffer; 
-            }
+                printf("\nVoltando ao menu..."); return pBuffer;}
 
             if(*(int*)rem_user >= *(int*)n_users+1){
-                printf("\nEsse usuário não está na lista. Voltando ao menu...");
-            return pBuffer; 
+                printf("\nEsse usuário não está na lista. Voltando ao menu..."); return pBuffer; 
             }
 
         }while(*(int*)rem_user<0 || *(int*)rem_user>*(int*)n_users);
