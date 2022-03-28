@@ -1,8 +1,14 @@
+/*Ulian Gabriel Alff Ramires
+* Matrícula Nº 20200274
+* Cursando no terceiro semestre AED1
+*
+* Exercício 5: Programa deve armazenar possíveis infinitos usuários, e listar todos eles no final.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include <windows.h>
+#include <windows.h>                                //apenas pra acentuação em conjunto com a primeira linha do main
 
 typedef struct{
 char nome[30];
