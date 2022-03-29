@@ -25,7 +25,6 @@ int main(){
     int exit_flag = 1;
     int option; 
     Pessoa *pBuffer = (Pessoa*)malloc(sizeof(Pessoa)); 
-    printf("\nO tamanho da struct é %d\n", sizeof(Pessoa));    //Inicializa o Buffer, contendo espaço pra uma pessoa.
 
     while(exit_flag){
         
@@ -65,7 +64,7 @@ Pessoa* add_cliente (Pessoa* pBuffer, int n_clientes){
         printf("Digite a idade do Cliente: ");
         scanf("%d", &temporario.idade);       
         getc(stdin);
-        
+
         printf("Digite a altura do Cliente: ");
         scanf("%f", &temporario.altura);      
         getc(stdin);
