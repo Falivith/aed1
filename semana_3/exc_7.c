@@ -139,7 +139,7 @@ void* rem_cadastro(void *pBuffer){
         }
         }while(*(int*)rem_user<0 || *(int*)rem_user>*(int*)n_users);
 
-    for(*(int*)contador = *(int*)rem_user-1; *(int*)contador < *(int*)n_users; *(int*)contador = *(int*)contador+1){    //i = num do usuario a ser removido; enquanto i < n_users; i++
+    for(*(int*)contador = *(int*)rem_user-1; *(int*)contador < *(int*)n_users; *(int*)contador = *(int*)contador+1){  
         pessoas[*(int*)contador] = pessoas[*(int*)contador+1];
     }
     *(int*)contador = 0; 
