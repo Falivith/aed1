@@ -35,8 +35,10 @@
 
 void* create_node ();
 void* insert (void* start, void* nodo, void* pBuffer);
-void* exclude (void* start, void* pBuffer);
+void* exclude  (void* start, void* pBuffer);
+void* restart  (void* start, void* pBuffer);
 void printlist (void* start, void* pBuffer);
+
 
 
 
@@ -82,6 +84,7 @@ int main(){
             break;
 
             case 3:
+
             break;
 
             case 4:
@@ -89,6 +92,7 @@ int main(){
             break;
 
             case 5:
+                start = restart(start, pBuffer);
             break;
 
             case 6:
@@ -195,6 +199,11 @@ void* exclude (void* start, void* pBuffer){
 }
 
 void printlist (void* start, void* pBuffer){
+
+    if(start == NULL){
+    printf("\nSua agenda não contém usuários cadastrados.\n");
+    return;
+    }
     
     void* atual = start;
     ((int*)pBuffer)[1] = 0;                       // Campo 2 de pBuffer usado como contador de nodos
@@ -209,4 +218,19 @@ void printlist (void* start, void* pBuffer){
 
         atual = *(void**)(atual + PROXIMO); 
     }
+}
+
+void* restart (void* start, void* pBuffer){
+
+    void* cleaner;
+
+    while(start != NULL){
+        cleaner = start; 
+        start = *(void**)(start + PROXIMO);
+        free(cleaner);
+    }
+
+    ((int*)pBuffer)[2] = 0;
+    printf("\nVocê reiniciou sua lista.\n");
+    return start; 
 }
