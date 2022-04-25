@@ -4,7 +4,7 @@ Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada c
 
 ## Estruturas Internas
 
-##### Struct "Imaginária"
+#### Struct "Imaginária"
  *Struct{       
   char nome[30];  
   int idade;  
@@ -15,9 +15,9 @@ Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada c
           
   (46 Bytes)
  
- ##### pBuffer
+ #### pBuffer
  *pBuffer { [0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30] }  
-   
+ 
  (42 Bytes)
 
  ##### Compilação e execução
