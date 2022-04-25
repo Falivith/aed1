@@ -1,22 +1,3 @@
-/*  Ulian Gabriel Alff Ramires; 
- *  Matrícula Nº 20200274; 
- *  3º Semestre AED1;
- *  Exercício 3 Agenda (Extendido);
- *  Todas as variáveis devem ser ponteiros, tem que usar fila ordenada (Heap) pra ordenar as pessoas. 
- *  A Base de dados deve ser implementada com lista encadeada duplamente ligada. 
- *
- *  Struct{             Imaginárias
-
- *  char nome[30];
- *  int idade;
- *  int telefone; 
- *  void* anterior; 
- *  void* proximo;
- *  }Nodo;             (46 Bytes)
- * 
- *  pBUffer {[0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30]} (42 Bytes)
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
