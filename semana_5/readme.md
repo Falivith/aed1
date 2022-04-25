@@ -16,9 +16,12 @@ Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada c
   (46 Bytes)
  
  ##### pBuffer
- >pBuffer { [0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30] }  
- 
+ *pBuffer { [0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30] }  
+   
  (42 Bytes)
+
+ ##### Compilação e execução
+ A compilação pode ser feita normalmente pelo GCC. Em caso de linux, basta retirar o #include windows.h e a primeira linha do main(). 
  
  ### Identificação
  Ulian Gabriel Alff Ramires (ugaramires@inf.ufpel.edu.br)
