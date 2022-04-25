@@ -2,7 +2,7 @@
  *  Matrícula Nº 20200274; 
  *  3º Semestre AED1;
  *  Exercício 3 Agenda (Extendido);
- *  Todas as variáveis devem ser ponteiros, tem que usar PILHA pra ordenar as pessoas. 
+ *  Todas as variáveis devem ser ponteiros, tem que usar fila ordenada (Heap) pra ordenar as pessoas. 
  *  A Base de dados deve ser implementada com lista encadeada duplamente ligada. 
  *
  *  Struct{             Imaginárias
@@ -35,7 +35,9 @@
 
 void* create_node ();
 void* insert (void* start, void* nodo, void* pBuffer);
+void* exclude (void* start, void* pBuffer);
 void printlist (void* start, void* pBuffer);
+
 
 
 int main(){
@@ -76,6 +78,7 @@ int main(){
             break;
 
             case 2:
+                start = exclude(start, pBuffer);
             break;
 
             case 3:
@@ -159,6 +162,35 @@ void* insert (void* start, void* novo_nodo, void* pBuffer){
     *(void**)(novo_nodo + ANTERIOR) = anterior;
 
     ((int*)pBuffer)[2]++;
+    return start;
+}
+
+void* exclude (void* start, void* pBuffer){
+
+    //Caso 1: Caso a lista esteja vazia
+
+    if(((int*)pBuffer)[2] == 0){
+        printf("\nA lista está vazia\n");
+        return start;
+    }
+
+    //Caso 2: Caso a lista tenha só um elemento
+
+    void* segundo_nodo = *(void**)(start + PROXIMO); 
+    free(start);
+
+    if(segundo_nodo == NULL){
+        ((int*)pBuffer)[2]--;
+        printf("\nRemovido com sucesso: Agora a lista está vazia. \n");
+        return segundo_nodo;
+    }
+
+    //Caso 3: Caso padrão 
+
+    start = segundo_nodo;
+    *(void**)(start + ANTERIOR) = NULL;
+    ((int*)pBuffer)[2]--;
+    printf("\nRemovido com sucesso. Restam <%d> cadastros\n", ((int*)pBuffer)[2]);
     return start;
 }
 
