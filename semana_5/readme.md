@@ -2,8 +2,6 @@
 Continuar a sua implementação da agenda (exercício 3) semana 1 dentro dos mesmo parâmetros, mas incluir o seguinte.
 Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada com lista encadeada duplamente ligada. Essa lista tem que ser implementada como heap (fila ordenada) em ordem alfabética.
 
-### Estruturas Internas
-
 #### Structs "Imaginárias"
  * Struct{       
   char nome[30];  
@@ -19,9 +17,9 @@ Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada c
 
  (42 Bytes)
 
- #### Compilação e Execução
+ ### Compilação e Execução
  A compilação pode ser feita normalmente pelo GCC. Em caso de linux, basta retirar o #include windows.h e a primeira linha do main(). 
- 
+ ________________________________________________________
  ### Identificação
  Ulian Gabriel Alff Ramires (ugaramires@inf.ufpel.edu.br)
 
