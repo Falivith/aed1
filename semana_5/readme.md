@@ -1,6 +1,6 @@
 ## Trabalho - Agenda 
 > Continuar a sua implementação da agenda (exercício 3) semana 1 dentro dos mesmo parâmetros, mas incluir o seguinte.
-### Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada com lista encadeada duplamente ligada. Essa lista tem que ser implementada como heap (fila ordenada) em ordem alfabética.
+> Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada com lista encadeada duplamente ligada. Essa lista tem que ser implementada como heap (fila ordenada) em ordem alfabética.
 
 Estruturas Imaginárias usadas
  *  Struct{            
@@ -10,7 +10,7 @@ Estruturas Imaginárias usadas
  *  void* anterior; 
  *  void* proximo;
  *  }novo_nodo;             (46 Bytes)
- * 
+ 
  *  pBUffer {[0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30]} (42 Bytes)
  
  ### Identificação
