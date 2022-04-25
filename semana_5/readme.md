@@ -5,16 +5,20 @@ Todas as variáveis devem ser ponteiros, a base de dados deve ser implementada c
 ## Estruturas Internas
 
 ##### Struct "Imaginária"
- *Struct{            
-  char nome[30];
-  int idade;
-  int telefone; 
-  void* anterior; 
-  void* proximo;
-  }novo_nodo;             (46 Bytes)
+ *Struct{       
+  char nome[30];  
+  int idade;  
+  int telefone;  
+  void* anterior;  
+  void* proximo;  
+  }novo_nodo;  
+          
+  (46 Bytes)
  
  ##### pBuffer
- >pBuffer { [0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30] } (42 Bytes)
+ >pBuffer { [0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30] }  
+ 
+ (42 Bytes)
  
  ### Identificação
  Ulian Gabriel Alff Ramires (ugaramires@inf.ufpel.edu.br)
