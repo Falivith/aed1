@@ -1,7 +1,3 @@
-/*Ulian Gabriel Alff Ramires
-* Matrícula Nº 20200274
-* Cursando no terceiro semestre AED1
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

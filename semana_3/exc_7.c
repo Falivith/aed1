@@ -1,10 +1,3 @@
-/*Ulian Gabriel Alff Ramires
-* Matrícula Nº 20200274
-* Cursando no terceiro semestre AED1
-*
-* Exercício 7: Programa deve armazenar os dados de 10 pessoas, todas as variáveis devem ser ponteiros.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
