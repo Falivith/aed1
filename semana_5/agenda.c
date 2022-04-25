@@ -23,14 +23,20 @@
 #include <stdbool.h>
 #include <windows.h>  /*Acentos*/
 
-#define STRUCT_SIZE 46 
+#define STRUCT_SIZE  46 
 #define PBUFFER_SIZE 12 
 
+/* Acesso aos elementos do nodo, para facilitar a organização */
+
+#define IDADE    30
+#define TELEFONE 34
+#define PROXIMO  42
+#define ANTERIOR 38
+
 void* create_node ();
+void* insert (void* start, void* nodo, void* pBuffer);
 void printlist (void* start, void* pBuffer);
-void* insert (void* start, void* nodo, void* pBuffer); 
-bool reset (void* pBuffer, void* start);
-bool empty (void* pBuffer, void* start); 
+
 
 int main(){
 
@@ -103,63 +109,72 @@ void* create_node (){
     printf("\nInsira o nome do novo usuário: ");
     scanf("%s", (char*)nodo);
     getchar(); 
-        nodo = nodo + 30;  
 
     printf("Insira a idade do novo usuário: ");
-    scanf("%d", (int*)nodo);
+    scanf("%d", &*(int*)(nodo + IDADE));
     getchar(); 
-        nodo = nodo + 4; 
 
     printf("Insira o telefone do novo usuário: ");
-    scanf("%d", (int*)nodo);
+    scanf("%d", &*(int*)(nodo + TELEFONE));
     getchar();
-        nodo = nodo + 4; 
 
-        *(void**)nodo = NULL; 
-        nodo = nodo + 4; 
-        *(void**)nodo = NULL; 
+        *(void**)(nodo + ANTERIOR) = NULL; 
 
-        nodo = nodo - 42; 
+        *(void**)(nodo + PROXIMO) = NULL; 
 
     return nodo; 
 }
 
-void* insert (void* start, void* novo_nodo, void* pBuffer){    //por enquanto, ela adiciona um elemento numa lista vazia.
+void* insert (void* start, void* novo_nodo, void* pBuffer){ 
 
-    void* atual = start; 
+    // Caso 1: Lista vazia
 
-    if(atual == NULL){  //cuida do caso em que a lista está vazia
-        atual = novo_nodo;
+    if(start == NULL){
+        start = novo_nodo;
+        ((int*)pBuffer)[2]++;
+        return start;
     }
 
-    while(atual != NULL && (strcmp( (char*)atual, (char*)novo_nodo) < 1) ){ //se a lista nao estiver vazia, mas não for o momento de inserir (proximo nodo)
-    atual = *(void**)(atual + 42); 
+    // Caso 2: Inserção na Cabeça
+
+    if((strcmp((char*)start, (char*)novo_nodo)) >= 0){
+        *(void**)(novo_nodo + PROXIMO) = start;
+        *(void**)(start + ANTERIOR) = novo_nodo;
+        start = novo_nodo;
+        return start; 
     }
 
+    // Caso 3: Inserção no meio/final da Lista
+
+    void* atual = start;
+    void* anterior = start; 
     
-    ((int*)pBuffer)[2]++; 
-    return start; 
-}
+    while(atual != NULL && (strcmp((char*)atual, (char*)novo_nodo) <= 0)){
+        anterior = atual;
+        atual = *(void**)(atual + PROXIMO);
+    }
 
-bool reset (void* pBuffer, void* start){
-return true;
-}
+    *(void**)(anterior + PROXIMO) = novo_nodo;
+    *(void**)(novo_nodo + PROXIMO) = atual;
+    *(void**)(novo_nodo + ANTERIOR) = anterior;
 
-bool empty (void* pBuffer, void* start){
-return true;
+    ((int*)pBuffer)[2]++;
+    return start;
 }
 
 void printlist (void* start, void* pBuffer){
     
     void* atual = start;
+    ((int*)pBuffer)[1] = 0;                       // Campo 2 de pBuffer usado como contador de nodos
 
     while(atual != NULL){
-        printf("\n<Nodo %d>\nNome do usuário: <%s>", ((int*)pBuffer)[2], (char*)atual);
-        atual = atual + 30;
-        printf("\nIdade: <%d>", *(int*)atual);
-        atual = atual + 4; 
-        printf("\nTelefone: <%d>", *(int*)atual);
-        atual = atual + 4; 
-        atual = *(void**)atual; 
+
+        ((int*)pBuffer)[1]++; 
+
+        printf("\n  <Nodo %d>\nNome do usuário: <%s>", ((int*)pBuffer)[1], (char*)atual);
+        printf("\nIdade: <%d>", *(int*)(atual + IDADE));
+        printf("\nTelefone: <%d>\n", *(int*)(atual + TELEFONE));
+
+        atual = *(void**)(atual + PROXIMO); 
     }
 }
