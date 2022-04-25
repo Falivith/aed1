@@ -14,7 +14,7 @@
  *  void* proximo;
  *  }Nodo;             (46 Bytes)
  * 
- *  pBUffer {[0]int aux1, [1]int aux2, [2]int n_nodos} (12 Bytes)
+ *  pBUffer {[0]int aux1, [1]int aux2, [2]int n_nodos, char tempnome[30]} (42 Bytes)
  */
 
 #include <stdio.h>
@@ -24,7 +24,8 @@
 #include <windows.h>  /*Acentos*/
 
 #define STRUCT_SIZE  46 
-#define PBUFFER_SIZE 12 
+#define PBUFFER_SIZE 42 
+#define TEMPNOME     12
 
 /* Acesso aos elementos do nodo, para facilitar a organização */
 
@@ -34,13 +35,11 @@
 #define ANTERIOR 38
 
 void* create_node ();
-void* insert (void* start, void* nodo, void* pBuffer);
-void* exclude  (void* start, void* pBuffer);
-void* restart  (void* start, void* pBuffer);
-void printlist (void* start, void* pBuffer);
-
-
-
+void* insert    (void* start, void* pBuffer, void* nodo);
+void* exclude   (void* start, void* pBuffer);
+void* restart   (void* start, void* pBuffer);
+void  search    (void* start, void* pBuffer);
+void  printlist (void* start, void* pBuffer);
 
 int main(){
 
@@ -76,7 +75,7 @@ int main(){
         switch(((int*)pBuffer)[1]){
 
             case 1:
-                start = insert(start, create_node(), pBuffer);
+                start = insert(start, pBuffer, create_node());
             break;
 
             case 2:
@@ -84,7 +83,7 @@ int main(){
             break;
 
             case 3:
-
+                search(start, pBuffer);
             break;
 
             case 4:
@@ -132,7 +131,7 @@ void* create_node (){
     return nodo; 
 }
 
-void* insert (void* start, void* novo_nodo, void* pBuffer){ 
+void* insert (void* start, void* pBuffer, void* novo_nodo){ 
 
     // Caso 1: Lista vazia
 
@@ -174,7 +173,7 @@ void* exclude (void* start, void* pBuffer){
     //Caso 1: Caso a lista esteja vazia
 
     if(((int*)pBuffer)[2] == 0){
-        printf("\nA lista está vazia\n");
+        printf("\nA agenda está vazia.\n");
         return start;
     }
 
@@ -185,7 +184,7 @@ void* exclude (void* start, void* pBuffer){
 
     if(segundo_nodo == NULL){
         ((int*)pBuffer)[2]--;
-        printf("\nRemovido com sucesso: Agora a lista está vazia. \n");
+        printf("\nRemovido com sucesso: Agora a agenda está vazia. \n");
         return segundo_nodo;
     }
 
@@ -233,4 +232,34 @@ void* restart (void* start, void* pBuffer){
     ((int*)pBuffer)[2] = 0;
     printf("\nVocê reiniciou sua lista.\n");
     return start; 
+}
+
+void search (void* start, void* pBuffer){
+
+    if(start == NULL){
+        printf("\nSua agenda está vazia.\n");
+        return;
+    }
+    else{
+        printf("\nDigite o nome que você quer buscar na agenda: ");
+        scanf("%s", (char*)(pBuffer + TEMPNOME));
+
+        ((int*)pBuffer)[1] = 1; 
+        void* atual = start; 
+
+        while(atual != NULL && (strcmp((char*)atual, (char*)(pBuffer + TEMPNOME)) != 0)){
+            atual = *(void**)(atual + PROXIMO);
+            ((int*)pBuffer)[1]++;
+        }
+
+        if(atual == NULL){
+            printf("\nEsse nome não se encontra na agenda.\n");
+            return;
+        }
+        else{
+            printf("\n  <Nodo %d>\nNome do usuário: <%s>", ((int*)pBuffer)[1], (char*)atual);
+            printf("\nIdade: <%d>", *(int*)(atual + IDADE));
+            printf("\nTelefone: <%d>\n", *(int*)(atual + TELEFONE));
+        }
+    }
 }
