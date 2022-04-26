@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <windows.h>  /*Acentos*/
 
-#define STRUCT_SIZE  46 
+#define NODE_SIZE    46 
 #define PBUFFER_SIZE 42 
 #define TEMPNOME     12
 
@@ -35,7 +34,7 @@ int main(){
     void* pBuffer = malloc(PBUFFER_SIZE);
                             
     ((int*)pBuffer)[0] = 1;                                     // |* Acessando void* como inteiros, pra poder usar esse índice
-    ((int*)pBuffer)[2] = 0;                                     // |* Usando um índice pois todos os dados de pBuffer tem 4 bytes
+    ((int*)pBuffer)[2] = 0;                                     // |* Usando um índice pois os dados de pBuffer exceto o TEMPNOME tem 4 bytes
 
     void* start = NULL; 
 
@@ -91,7 +90,7 @@ int main(){
 
 void* create_node (){
 
-    void* nodo = malloc( 30*sizeof(char) + 2*sizeof(int) + 2*sizeof(void**) );
+    void* nodo = malloc(NODE_SIZE);
 
     printf("\nInsira o nome do novo usuário: ");
     scanf("%s", (char*)nodo);
@@ -128,6 +127,7 @@ void* insert (void* start, void* pBuffer, void* novo_nodo){
         *(void**)(novo_nodo + PROXIMO) = start;
         *(void**)(start + ANTERIOR) = novo_nodo;
         start = novo_nodo;
+        ((int*)pBuffer)[2]++;
         return start; 
     }
 
@@ -178,28 +178,6 @@ void* exclude (void* start, void* pBuffer){
     return start;
 }
 
-void printlist (void* start, void* pBuffer){
-
-    if(start == NULL){
-    printf("\nSua agenda não contém usuários cadastrados.\n");
-    return;
-    }
-    
-    void* atual = start;
-    ((int*)pBuffer)[1] = 0;                       // Campo 2 de pBuffer usado como contador de nodos
-
-    while(atual != NULL){
-
-        ((int*)pBuffer)[1]++; 
-
-        printf("\n  <Nodo %d>\nNome do usuário: <%s>", ((int*)pBuffer)[1], (char*)atual);
-        printf("\nIdade: <%d>", *(int*)(atual + IDADE));
-        printf("\nTelefone: <%d>\n", *(int*)(atual + TELEFONE));
-
-        atual = *(void**)(atual + PROXIMO); 
-    }
-}
-
 void* restart (void* start, void* pBuffer){
 
     void* cleaner;
@@ -242,5 +220,27 @@ void search (void* start, void* pBuffer){
             printf("\nIdade: <%d>", *(int*)(atual + IDADE));
             printf("\nTelefone: <%d>\n", *(int*)(atual + TELEFONE));
         }
+    }
+}
+
+void printlist (void* start, void* pBuffer){
+
+    if(start == NULL){
+    printf("\nSua agenda não contém usuários cadastrados.\n");
+    return;
+    }
+    
+    void* atual = start;
+    ((int*)pBuffer)[1] = 0;                       // Campo 2 de pBuffer usado como contador de nodos
+
+    while(atual != NULL){
+
+        ((int*)pBuffer)[1]++; 
+
+        printf("\n  <Nodo %d>\nNome do usuário: <%s>", ((int*)pBuffer)[1], (char*)atual);
+        printf("\nIdade: <%d>", *(int*)(atual + IDADE));
+        printf("\nTelefone: <%d>\n", *(int*)(atual + TELEFONE));
+
+        atual = *(void**)(atual + PROXIMO); 
     }
 }
