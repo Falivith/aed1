@@ -222,6 +222,7 @@ void search (void* start, void* pBuffer){
         }
     }
 }
+<<<<<<< HEAD
 
 void printlist (void* start, void* pBuffer){
 
@@ -244,3 +245,5 @@ void printlist (void* start, void* pBuffer){
         atual = *(void**)(atual + PROXIMO); 
     }
 }
+=======
+>>>>>>> 8a5b75fa1e5096235cb6253db90e251cc3be20a4

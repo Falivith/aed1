@@ -10,4 +10,3 @@ A compilação pode ser feita normalmente pelo GCC. Em caso de linux, basta reti
 ________________________________________________________
 ### Identificação
 Ulian Gabriel Alff Ramires (ugaramires@inf.ufpel.edu.br)
-
