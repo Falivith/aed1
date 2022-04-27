@@ -102,8 +102,6 @@ char* remnome(char* str){
         tamanho = strlen(str);
         str = (char*)realloc(str, tamanho*sizeof(char)+sizeof(char)); //diminue a quantidade de memória alocada, o +1 é para contar o caractere nulo.
         return str; 
-        }
-        else{
-            goto inicio;
-        }
+    }
+    else goto inicio;
 }
