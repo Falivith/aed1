@@ -18,7 +18,9 @@ void* listar_cadastro(void *pBuffer);
 void* rem_cadastro(void *pBuffer);
 
 int main(){
-    SetConsoleOutputCP(65001); //acentuação         
+
+    SetConsoleOutputCP(65001); //acentuação      
+
     void* pBuffer = malloc(6*sizeof(int));
     *(int*)pBuffer = 1;                               //1º Campo INT de pBuffer = controle do while do menu
     void* ptr = pBuffer + sizeof(int);                
@@ -32,9 +34,10 @@ int main(){
     ptr = pBuffer + 5*sizeof(int); 
     *(int*)ptr = 0;                                   //6º Campo INT de pBUffer = Variável auxiliar (for, contador, etc)
 
-    while(*(int*)pBuffer){                   
+    while(*(int*)pBuffer){             
         menu_agenda(pBuffer);
     }
+
     free(pBuffer);
     return 0;
 }
