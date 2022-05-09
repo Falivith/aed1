@@ -59,7 +59,7 @@ struct Nodo* rot_dir(struct Nodo* critico){
 }
 
 struct Nodo* rot_esq(struct Nodo* critico){
-
+    
     struct Nodo* girado = critico->direita;
     struct Nodo* temp = girado->esquerda;
  
@@ -91,7 +91,7 @@ struct Nodo* inserir(struct Nodo* raiz, struct Nodo* novo){
     int f_balanc = fb(raiz); 
 
     // Rotação à Esquerda
-    if (f_balanc < -1 && novo->valor > raiz->direita->valor)
+    if (f_balanc < -1 && novo->valor >= raiz->direita->valor)
         return rot_esq(raiz);
 
     // Rotação à Direita
@@ -99,7 +99,7 @@ struct Nodo* inserir(struct Nodo* raiz, struct Nodo* novo){
         return rot_dir(raiz);
 
     // Rotação Dupla à Esquerda
-    if (f_balanc > 1 && novo->valor > raiz->esquerda->valor){
+    if (f_balanc > 1 && novo->valor >= raiz->esquerda->valor){
         raiz->esquerda = rot_esq(raiz->esquerda);
         return rot_dir(raiz);
     }
@@ -113,24 +113,113 @@ struct Nodo* inserir(struct Nodo* raiz, struct Nodo* novo){
     return raiz; 
 }
 
+struct Nodo* deletar(struct Nodo* raiz, int valor){
+
+    // Caso base
+    if (raiz == NULL)
+        return raiz;
+ 
+    // Procura recursiva do valor na árvore
+    if (valor < raiz->valor)
+        raiz->esquerda = deletar(raiz->esquerda, valor);
+ 
+    else if( valor > raiz->valor )
+        raiz->direita = deletar(raiz->direita, valor);
+ 
+
+    // Se o valor é o mesmo, então é esse o nodo a ser deletado.
+    else
+    {
+        if( (raiz->esquerda == NULL) || (raiz->direita == NULL) )
+        {
+            struct Nodo* temp;
+
+            if(raiz->esquerda != NULL)
+            temp = raiz->esquerda; 
+            else
+            temp = raiz->direita;
+ 
+            if (temp == NULL)
+            {
+                temp = raiz;
+                raiz = NULL;
+            }
+            else
+            *raiz = *temp;
+
+            free(temp);
+        }
+        else // Caso com uma subárvore
+        {
+             // Acha o menor valor da subárvore
+            struct Nodo* temp = raiz->direita;
+                while (temp->esquerda != NULL)
+                    temp = temp->esquerda;
+
+            raiz->valor = temp->valor;
+            raiz->direita = deletar(raiz->direita, temp->valor);
+        }
+    }
+    
+    if (raiz == NULL)
+      return raiz;
+ 
+    // Atualiza a altura do nodo atual
+
+    if(altura(raiz->esquerda) > altura(raiz->direita))
+        raiz->altura = 1 + altura(raiz->esquerda);
+    else
+        raiz->altura = 1 + altura(raiz->direita);
+ 
+    
+    // Verifica o fator de balanceamento
+
+    int f_balanc = fb(raiz);
+ 
+    // If this node becomes unbalanced, then there are 4 cases
+ 
+    // Rotação à Direita
+    if (f_balanc > 1 && fb(raiz->esquerda) >= 0)
+        return rot_dir(raiz);
+ 
+    // Rotação Dupla à Esquerda
+    if (f_balanc > 1 && fb(raiz->esquerda) < 0)
+    {
+        raiz->esquerda =  rot_esq(raiz->esquerda);
+        return rot_dir(raiz);
+    }
+ 
+     // Rotação à Esquerda
+    if (f_balanc < -1 && fb(raiz->direita) <= 0)
+        return rot_esq(raiz);
+ 
+    // Rotação Dupla à Direita
+    if (f_balanc < -1 && fb(raiz->direita) > 0)
+    {
+        raiz->direita = rot_dir(raiz->direita);
+        return rot_esq(raiz);
+    }
+ 
+    return raiz;
+}
+
 void print(struct Nodo *raiz, int spaces){
 
     if (raiz == NULL)
         return;
  
-    spaces += 5;
+    spaces += 8;
  
     print(raiz->direita, spaces);
  
     printf("\n");
-    for (int i = 5; i < spaces; i++)
+    for (int i = 8; i < spaces; i++)
         printf(" ");
     printf("%d\n", raiz->valor);
  
     print(raiz->esquerda, spaces);
 }
  
-
 int EhArvoreAvl(struct Nodo* pRaiz){
 
     int fbalanc;
@@ -148,7 +237,6 @@ int EhArvoreAvl(struct Nodo* pRaiz){
             return 0;
 
             else
-
             return 1;
 }
 
@@ -165,9 +253,10 @@ int main(){
         printf("|----------------------------|\n");
         printf("| 1) Inserir valor           |\n");
         printf("| 2) Inserir valor randômico |\n");
-        printf("| 3) Printar Árvore          |\n");
-        printf("| 4) É AVL?                  |\n");
-        printf("| 5) Sair                    |\n");
+        printf("| 3) Deletar valor           |\n");
+        printf("| 4) Printar Árvore          |\n");
+        printf("| 5) É AVL?                  |\n");
+        printf("| 6) Sair                    |\n");
         printf("|----------------------------|\n");
         printf("\n-> ");
         scanf("%d", &choice);
@@ -186,10 +275,16 @@ int main(){
                 break;
 
             case 3:
-                print(raiz, 0);
+                printf("Digite o valor a ser deletado da Árvore: ");
+                scanf("%d", &num);
+                raiz = deletar(raiz, num);
                 break;
 
             case 4:
+                print(raiz, 0);
+                break;
+
+            case 5:
                 if (EhArvoreAvl(raiz))
                 printf("\n é AVL.");
                 else
