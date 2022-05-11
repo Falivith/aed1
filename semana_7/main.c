@@ -52,7 +52,7 @@ int main(){
                 break;
 
             case 4:
-                print(raiz, 0);
+                print(raiz, SPACE);
                 break;
 
             case 5:

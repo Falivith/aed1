@@ -1,6 +1,8 @@
 #ifndef AVLTREE_H_INCLUDED
 #define AVLTREE_H_INCLUDED
 
+#define SPACE 8
+
 struct Nodo{
     int altura;
     int valor;

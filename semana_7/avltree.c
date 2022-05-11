@@ -122,7 +122,7 @@ struct Nodo* deletar(struct Nodo* raiz, int valor){
     // Se o valor é o mesmo, então é esse o nodo a ser deletado.
     else
     {
-        if( (raiz->esquerda == NULL) || (raiz->direita == NULL) )
+        if( (raiz->esquerda == NULL) || (raiz->direita == NULL) ) // Caso com uma subárvore ou nenhuma
         {
             struct Nodo* temp;
 
@@ -141,7 +141,7 @@ struct Nodo* deletar(struct Nodo* raiz, int valor){
 
             free(temp);
         }
-        else // Caso com uma subárvore
+        else // Caso com duas subárvores
         {
              // Acha o menor valor da subárvore
             struct Nodo* temp = raiz->direita;
@@ -153,6 +153,7 @@ struct Nodo* deletar(struct Nodo* raiz, int valor){
         }
     }
     
+    //Caso a árvore só tenha um nodo. 
     if (raiz == NULL)
       return raiz;
  
@@ -213,12 +214,12 @@ void print(struct Nodo *raiz, int spaces){
     if (raiz == NULL)
         return;
  
-    spaces += 8;
+    spaces += SPACE;
  
     print(raiz->direita, spaces);
  
     printf("\n");
-    for (int i = 8; i < spaces; i++)
+    for (int i = SPACE; i < spaces; i++)
         printf(" ");
     printf("%d\n", raiz->valor);
  
