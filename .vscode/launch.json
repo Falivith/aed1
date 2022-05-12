@@ -8,7 +8,7 @@
             "name": "(gdb) Iniciar",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/semana_7/teste.exe",
+            "program": "${workspaceFolder}/semana_10/a.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
