@@ -19,7 +19,8 @@ int main (){
     while(sair){
         printf("\n");
         printf(" _________________________________\n");
-        printf("|                      Size <%03d> |\n", x->tamanho);
+        printf("| -> Tamanho Atual <%05d>        |\n", x->tamanho);
+        printf("|                                 |\n");
         printf("| 1) Gerar outro Vetor            |\n");
         printf("| 2) Escolher tamanho do vetor    |\n");
         printf("| 3) Selection Sort + Print       |\n");
