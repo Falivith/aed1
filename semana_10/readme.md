@@ -22,4 +22,3 @@ usada em conjunto com qualquer outro projeto sem maiores problemas.
  ________________________________________________________
 ### Identificação
 Ulian Gabriel Alff Ramires (ugaramires@inf.ufpel.edu.br)
-
