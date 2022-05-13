@@ -8,17 +8,15 @@ Implementação de diversos tipos de algoritmos de ordenação
 
 ## Compilação e Execução
 
-- gcc -Wall -g -o sort_tester.exe main.c sortalgs.c iohandler.c
- 
-Devido ao uso de bibliotecas proprietárias para windows, não\
-é possivel compilar o programa inteiro em linux sem grandes\
-modificações.
+### Windows
 
-## sortalgs.c
+- gcc -Wall -g -o sort_tester.exe main.c sortalgs.c iohandler.c
+- ./sort_tester.exe
+
+### Linux
   
-Em compensação, a biblioteca sortalgs.c, onde está a implementação das\
-funções de sort, está livre de bibliotecas proprietárias, e pode ser\
-usada em conjunto com qualquer outro projeto sem maiores problemas. 
+- gcc -Wall -g .o sort_tester main.c sortalgs.c iohandler.c 
+- ./sort_tester
  ________________________________________________________
 ### Identificação
 Ulian Gabriel Alff Ramires (ugaramires@inf.ufpel.edu.br)
