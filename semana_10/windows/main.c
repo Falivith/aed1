@@ -1,7 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <windows.h>
-#include <time.h>
-
 #include "iohandler.h"
 #include "sortalgs.h"
 
@@ -20,7 +19,7 @@ int main (){
     while(sair){
         printf("\n");
         printf(" _________________________________\n");
-        printf("|                       Size <%03d>|\n", x->tamanho);
+        printf("|                      Size <%03d> |\n", x->tamanho);
         printf("| 1) Gerar outro Vetor            |\n");
         printf("| 2) Escolher tamanho do vetor    |\n");
         printf("| 3) Selection Sort + Print       |\n");

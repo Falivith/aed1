@@ -14,7 +14,7 @@ vetores* escolher_tamanho(vetores* x){
         printf("\n-> ");
         scanf("%d", &x->tamanho);
     }
-    while(x->tamanho < 1 || x->tamanho > 1000);
+    while(x->tamanho < 1 || x->tamanho > 5000);
 
     x->desordenado = (int*)realloc(x->desordenado, x->tamanho*sizeof(int));
     x->ordenado = (int*)realloc(x->ordenado, x->tamanho*sizeof(int));
