@@ -25,7 +25,9 @@ int main (){
         printf("| 2) Escolher tamanho do vetor    |\n");
         printf("| 3) Selection Sort + Print       |\n");
         printf("| 4) Insertion Sort + Print       |\n");
-        printf("| 5) Sair                         |\n");
+        printf("| 5) Quick Sort + Print           |\n");
+        printf("| 6) Merge Sort + Print           |\n");
+        printf("| 7) Sair                         |\n");
         printf("|_________________________________|\n");
         printf("\n-> ");
         scanf("%d", &escolha);
@@ -54,6 +56,17 @@ int main (){
                 break;
 
             case 5:
+                quick_sort(x->ordenado, 0, x->tamanho-1);
+                system("cls");
+                mostrar_vetores(x);
+                break;
+
+            case 6:
+                system("cls");
+                mostrar_vetores(x);
+                break;
+
+            case 7:
                 sair = 0;
                 break;
         }

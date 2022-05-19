@@ -38,3 +38,34 @@ void insertion_sort(int* vetor, int size){
         }
     }
 }
+
+void quick_sort(int* vetor, int inicio, int fim){
+
+    int temp, pivot, i, j;
+
+    i = inicio; 
+    j = fim;
+    pivot = vetor[(inicio + fim)/2];
+
+    do{
+        while(vetor[i] < pivot)
+        i++;
+        while(pivot < vetor[j])
+        j--;
+
+        //SWAP
+        if(i <= j){
+            temp = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = temp;
+            i++;
+            j--;
+        }
+    }while(i <= j);
+
+    if(inicio < j)
+    quick_sort(vetor, inicio, j);
+
+    if(i < fim)
+    quick_sort(vetor, i, fim);
+}
