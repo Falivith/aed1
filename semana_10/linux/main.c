@@ -28,7 +28,9 @@ int main (){
     printf("| 2) Escolher tamanho do vetor    |\n");
     printf("| 3) Selection Sort + Print       |\n");
     printf("| 4) Insertion Sort + Print       |\n");
-    printf("| 5) Sair                         |\n");
+    printf("| 5) Quick Sort + Print           |\n");
+    printf("| 6) Merge Sort + Print           |\n");
+    printf("| 7) Sair                         |\n");
     printf("|_________________________________|\n");
     printf("\n-> ");
     scanf("%d", &escolha);
@@ -50,7 +52,7 @@ int main (){
         system("clear");
         
         inicio = clock();
-        selection_sort(x->ordenado, x->tamanho);
+          selection_sort(x->ordenado, x->tamanho);
         fim = clock();
         
         mostrar_vetores(x);
@@ -62,7 +64,7 @@ int main (){
         system("clear");
         
         inicio = clock();
-        insertion_sort(x->ordenado, x->tamanho);
+          insertion_sort(x->ordenado, x->tamanho);
         fim = clock();
         
         mostrar_vetores(x);
@@ -71,6 +73,23 @@ int main (){
         break;
 
       case 5:
+        system("clear");
+      
+        inicio = clock();
+          quick_sort(x->ordenado, 0, x->tamanho-1);
+        fim = clock();
+
+        mostrar_vetores(x);
+        tempo = (double)(fim - inicio)/CLOCKS_PER_SEC;
+        printf("\n\nTempo medido (Quick Sort): %.3f segundos.\n", tempo);
+        break;
+
+      case 6:
+        system("cls");
+        mostrar_vetores(x);
+        break;
+
+      case 7:
         sair = 0;
         break;
     }
