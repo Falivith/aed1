@@ -7,8 +7,8 @@ void insertion_sort(int* vetor, int size);
 
 void quick_sort(int* vetor, int inicio, int fim);
 
-int* merge_sort(int* vetor, int size);
+void merge_sort(int* vetor, int esq, int dir);
 
-int* merge(int* left, int* right, int sz_left, int sz_right);
+void merge(int* vetor, int esq, int meio, int dir);
 
 #endif
