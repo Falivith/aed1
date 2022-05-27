@@ -62,6 +62,7 @@ int main (){
                 break;
 
             case 6:
+                x->ordenado = merge_sort(x->ordenado, x->tamanho);
                 system("cls");
                 mostrar_vetores(x);
                 break;
