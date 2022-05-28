@@ -73,5 +73,9 @@ int main (){
         }
     }
 
+    free(x->desordenado);
+    free(x->ordenado);
+    free(x);
+
     return 0;
 }

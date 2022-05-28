@@ -39,10 +39,11 @@ void mostrar_vetores(vetores* x){
 
     int i; 
 
-    printf("\nSeu vetor desordenado: "); 
+    printf("\nSeu vetor anteriormente desordenado: "); 
         for(i = 0; i < x->tamanho; i++)
             printf("%02d ", x->desordenado[i]); 
-    printf("\nAgora, vetor ordenado: "); 
+    printf("\n\nAgora, vetor ordenado: "); 
         for(i = 0; i < x->tamanho; i++)
-            printf("%02d ", x->ordenado[i]); 
+            printf("%02d ", x->ordenado[i]);
+    printf("\n\n-> Warning: Ordenar novamente sem gerar outro vetor irá forçar o caso de ordenação em uma lista já ordenada.\n"); 
 }

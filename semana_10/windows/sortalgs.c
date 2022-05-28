@@ -29,19 +29,24 @@ void selection_sort(int* vetor, int size){
 
 void insertion_sort(int* vetor, int size){
 
-    int i, j, temp; 
+    int i, j, temp;
+    int contador; 
 
     for(i = 1; i < size; i++){
 
         temp = vetor[i]; 
         j = i-1; 
+        contador = 0;
 
         while(temp < vetor[j] && j >= 0){
-            vetor[j+1] = vetor[j];
+            contador++; 
             j--;
         }
-    
-        vetor[j+1] = temp; 
+
+        if(contador > 0){
+            memmove(&vetor[j+2], &vetor[j+1], (contador) * sizeof(int));
+            vetor[j+1] = temp;
+        }
     }
 }
 
