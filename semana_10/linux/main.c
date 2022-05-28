@@ -85,8 +85,14 @@ int main (){
         break;
 
       case 6:
-        system("cls");
+        system("cls");   
+        inicio = clock();
+        merge_sort(x->ordenado, 0, x->tamanho-1);
+        fim = clock();
+        
         mostrar_vetores(x);
+        tempo = (double)(fim - inicio)/CLOCKS_PER_SEC;
+        printf("\n\nTempo medido (Merge Sort): %.3f segundos.\n", tempo);
         break;
 
       case 7:
@@ -94,6 +100,10 @@ int main (){
         break;
     }
   }
+
+  free(x->desordenado);
+  free(x->ordenado);
+  free(x);
 
   return 0;
 }
