@@ -85,7 +85,8 @@ int main (){
         break;
 
       case 6:
-        system("cls");   
+        system("cls");
+        
         inicio = clock();
         merge_sort(x->ordenado, 0, x->tamanho-1);
         fim = clock();
