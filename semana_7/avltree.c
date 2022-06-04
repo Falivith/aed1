@@ -169,8 +169,6 @@ struct Nodo* deletar(struct Nodo* raiz, int valor){
 
     int f_balanc = fb(raiz);
  
-    // If this node becomes unbalanced, then there are 4 cases
- 
     // Rotação à Direita
     if (f_balanc > 1 && fb(raiz->esquerda) >= 0)
         return rot_dir(raiz);
