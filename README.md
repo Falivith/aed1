@@ -9,4 +9,4 @@ Nesse período, estava a cursar o terceiro semestre do curso de Ciência da Comp
 
 Activities carried out during the ADS course in the first half of 2022.
 
-During this period, i was in the third semester of the Computer Science course at UFPEL.
+During this period, i was in the 3/8 period of the Computer Science course at UFPEL.
